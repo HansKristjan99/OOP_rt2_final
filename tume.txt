@@ -1,0 +1,3 @@
+board.png
+must_nupp.png
+punane_nupp.png
