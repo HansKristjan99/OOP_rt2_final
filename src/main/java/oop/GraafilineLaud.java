@@ -508,9 +508,9 @@ public class GraafilineLaud extends Application {
             }
             esimene.hide();
 
-            mängijad.add(new Mängija(punane));
-            mängijad.add(new Mängija(must));
-            mängijad.add(new Mängija(Color.WHITE));
+            mängijad.add(new Mängija(punane,1));
+            mängijad.add(new Mängija(must,2));
+            mängijad.add(new Mängija(Color.WHITE,3));
 
             Group juur = setUp();
             getButtons(juur);

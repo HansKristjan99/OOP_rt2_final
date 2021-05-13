@@ -70,7 +70,7 @@ public class Käik {
 
 
     public boolean kasVaba(GraafilineLaud laud, String täht) {
-        Mängija tühiMängija = new Mängija(Color.WHITE);
+        Mängija tühiMängija = new Mängija(Color.WHITE,6);
         if (täht.equals("A")) {
             return laud.getKohad().get(0).getOlek().equals(tühiMängija);
         } else if (täht.equals("B")) {
