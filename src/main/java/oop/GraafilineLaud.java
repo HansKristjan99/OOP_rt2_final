@@ -24,6 +24,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.*;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.*;
 
 public class GraafilineLaud extends Application {
@@ -37,6 +40,7 @@ public class GraafilineLaud extends Application {
     boolean järgmineKäikVõtmine1 = false;
     boolean järgmineKäikVõtmine2 = false;
     Color taust = Color.BLACK;
+    int käiguNr = 0;
 
     private ImagePattern punane = new ImagePattern(new Image("punane_nupp.png"));
     private ImagePattern must = new ImagePattern(new Image("must_nupp.png"));
@@ -55,6 +59,20 @@ public class GraafilineLaud extends Application {
 
     public void setTaust(Color taust) {
         this.taust = taust;
+    }
+    public void kirjutaLogiFaili (String tekst) throws LogiEiKirjutataErind {
+        try {
+            File file =new File("logifail.txt");
+            if(!file.exists()){
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file,true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(tekst);
+            bw.close();
+        } catch (Exception e){
+            throw new LogiEiKirjutataErind("Logifaili ei leitud");
+        }
     }
 
     public List<String> mängijaNupud(Mängija mängija) {
@@ -363,7 +381,20 @@ public class GraafilineLaud extends Application {
                         info.setText("Mäng sai läbi! Võitis esimene mängija");
                     }
                 }
+                StringBuilder tekst = new StringBuilder();
 
+                for (Koht koht1 : kohad) {
+                    if (!koht1.getOlek().equals(mängijad.get(2))){
+                        tekst.append(koht1 + " \n");
+                    }
+                }
+
+                try {
+                    kirjutaLogiFaili("Okupeeritud kohad pärast käiku " +käiguNr + ": \n" + tekst);
+                } catch (LogiEiKirjutataErind logiEiKirjutataErind) {
+                    System.out.println("Logifaili ei leitud");
+                }
+                käiguNr++;
             });
             juur.getChildren().add(koht.getRing());
         }
@@ -405,7 +436,7 @@ public class GraafilineLaud extends Application {
 
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
-        List<Label> read = new ArrayList<>(Arrays.asList(rida1, rida2, rida3, rida4, rida5, rida6, rida7, rida8, rida9, rida10, rida11, rida12, rida13, rida14, rida15));
+        List<Label> read = new ArrayList<>(Arrays.asList(rida1, rida2, rida3, rida4, rida5, rida6, rida7, rida8, rida9, rida10, rida11, rida12,rida13,rida14,rida15));
 
         for (Label l : read) {
             l.setTextFill(Color.WHITE);

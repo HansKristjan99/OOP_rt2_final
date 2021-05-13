@@ -61,6 +61,6 @@ public class Koht {
     @Override
     public String toString() {
         return "Koht: " +
-                "nimi='" + nimi + "indeks" + indeks;
+                "nimi= " + nimi + " indeks " + indeks;
     }
 }
