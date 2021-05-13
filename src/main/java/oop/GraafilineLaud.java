@@ -246,39 +246,50 @@ public class GraafilineLaud extends Application {
                     if (esimeseMängijaKord) {
                         if (järgmineKäikVõtmine1) {
                             koht.setOlek(mängijad.get(2));
+                            koht.setRingLäbipaistvus(false);
                             info.setText("2. mängija, lisa nupp");
                             järgmineKäikVõtmine1 = false;
-                        } else if (käikLisabKolmiku(kohad, koht, mängijad.get(0))) {
-                            järgmineKäikVõtmine1 = true;
-                            esimeseMängijaKord = !esimeseMängijaKord;
-                            info.setText("Eemalda nupp 2. mängijalt");
-                            koht.setRingLäbipaistvus(true);
-                            koht.setOlek(mängijad.get(0));
-                            nuppeLisatud += 1;
-                        } else {
-                            koht.setRingLäbipaistvus(true);
-                            koht.setOlek(mängijad.get(0));
-                            nuppeLisatud += 1;
-                            info.setText("2. mängija, lisa nupp");
-                        }
+                        } else
+                            if (koht.getOlek().equals(mängijad.get(2))){
+                                if (käikLisabKolmiku(kohad, koht, mängijad.get(0))) {
+                                    järgmineKäikVõtmine1 = true;
+                                    esimeseMängijaKord = !esimeseMängijaKord;
+                                    info.setText("Eemalda nupp 2. mängijalt");
+                                    koht.setRingLäbipaistvus(true);
+                                    koht.setOlek(mängijad.get(0));
+                                    nuppeLisatud += 1;
+                                } else {
+                                    koht.setRingLäbipaistvus(true);
+                                    koht.setOlek(mängijad.get(0));
+                                    nuppeLisatud += 1;
+                                    info.setText("2. mängija, lisa nupp");
+                                }
+                            }
+
                     } else {
                         if (järgmineKäikVõtmine2) {
                             koht.setOlek(mängijad.get(2));
+                            koht.setRingLäbipaistvus(false);
                             info.setText("1. mängija, lisa nupp");
                             järgmineKäikVõtmine2 = false;
-                        } else if (käikLisabKolmiku(kohad, koht, mängijad.get(1))) {
-                            järgmineKäikVõtmine2 = true;
-                            esimeseMängijaKord = !esimeseMängijaKord;
-                            info.setText("Eemalda nupp 1. mängijalt");
-                            koht.setRingLäbipaistvus(true);
-                            koht.setOlek(mängijad.get(1));
-                            nuppeLisatud += 1;
-                        } else {
-                            koht.setRingLäbipaistvus(true);
-                            koht.setOlek(mängijad.get(1));
-                            info.setText("1. mängija, lisa nupp");
-                            nuppeLisatud += 1;
+                        } else
+                        if (koht.getOlek().equals(mängijad.get(2))){
+                            if (käikLisabKolmiku(kohad, koht, mängijad.get(1))) {
+                                järgmineKäikVõtmine2 = true;
+                                esimeseMängijaKord = !esimeseMängijaKord;
+                                info.setText("Eemalda nupp 1. mängijalt");
+                                koht.setRingLäbipaistvus(true);
+                                koht.setOlek(mängijad.get(1));
+                                nuppeLisatud += 1;
+                            } else {
+                                koht.setRingLäbipaistvus(true);
+                                koht.setOlek(mängijad.get(1));
+                                info.setText("1. mängija, lisa nupp");
+                                nuppeLisatud += 1;
+                            }
+
                         }
+
                     }
                     esimeseMängijaKord = !esimeseMängijaKord;
                     if (nuppeLisatud >= 18) {
@@ -289,6 +300,7 @@ public class GraafilineLaud extends Application {
                     if (esimeseMängijaKord) {
                         if (järgmineKäikVõtmine1 && koht.getOlek().equals(mängijad.get(1))) {
                             koht.setOlek(mängijad.get(2));
+                            koht.setRingLäbipaistvus(false);
                             järgmineKäikVõtmine1 = false;
                             info.setText("1. mängija käib");
 
@@ -332,6 +344,7 @@ public class GraafilineLaud extends Application {
 
                         if (järgmineKäikVõtmine2 && koht.getOlek().equals(mängijad.get(0))) {
                             koht.setOlek(mängijad.get(2));
+                            koht.setRingLäbipaistvus(false);
                             järgmineKäikVõtmine2 = false;
                             info.setText("2. mängija käib");
                         } else if (koht.getOlek().equals(mängijad.get(1))) {
