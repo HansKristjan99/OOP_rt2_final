@@ -501,6 +501,11 @@ public class GraafilineLaud extends Application {
 
 
         start.setOnMouseClicked(event -> {
+            try {
+                kirjutaLogiFaili("\n UUS MÄNG \n -------------------------------------------- \n");
+            } catch (LogiFailiEiLeitudErind logiFailiEiLeitudErind) {
+
+            }
             esimene.hide();
 
             mängijad.add(new Mängija(punane));
