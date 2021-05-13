@@ -19,6 +19,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.*;
 
 public class GraafilineLaud extends Application {
@@ -238,7 +240,7 @@ public class GraafilineLaud extends Application {
                         }
                     }
                     esimeseMängijaKord = !esimeseMängijaKord;
-                    if (nuppeLisatud >= 8) {
+                    if (nuppeLisatud >= 18) {
                         info.setText("Liiguta oma nuppe, et saada 3 ritta.");
                         mängufaas = 1;
                     }
@@ -250,9 +252,9 @@ public class GraafilineLaud extends Application {
                 else if (mängufaas == 1) {
                     if (esimeseMängijaKord) {
                         if (järgmineKäikVõtmine1&& koht.getOlek().equals(mängijad.get(1))) {
-
                             koht.setOlek(mängijad.get(2));
                             järgmineKäikVõtmine1 = false;
+                            info.setText("1. mängija käib");
 
                         }
                         else if (koht.getOlek().equals(mängijad.get(0))) {
@@ -275,6 +277,7 @@ public class GraafilineLaud extends Application {
                                 info.setText("Saad võtta 2. mängija nupu");
                                 järgmineKäikVõtmine1 = true;
                             }
+
                             aktiivseNupuKoht.setOlek(mängijad.get(2));
                             aktiivseNupuKoht.setRingLäbipaistvus(true);
                             for (Koht k2 : kohad) {
@@ -284,6 +287,7 @@ public class GraafilineLaud extends Application {
                                 }
                             }
                             if (!järgmineKäikVõtmine1) {
+                                info.setText("2. mängija käib");
                                 esimeseMängijaKord = !esimeseMängijaKord;
                             }
 
@@ -294,6 +298,7 @@ public class GraafilineLaud extends Application {
                         if (järgmineKäikVõtmine2 && koht.getOlek().equals(mängijad.get(0))) {
                             koht.setOlek(mängijad.get(2));
                             järgmineKäikVõtmine2 = false;
+                            info.setText("2. mängija käib");
                         }
                         else if (koht.getOlek().equals(mängijad.get(1))) {
                             aktiivseNupuKoht = koht;
@@ -324,6 +329,7 @@ public class GraafilineLaud extends Application {
                                 }
                             }
                             if (!järgmineKäikVõtmine2) {
+                                info.setText("1. mängija käib");
                                 esimeseMängijaKord = !esimeseMängijaKord;
                             }
                         }
@@ -411,6 +417,10 @@ public class GraafilineLaud extends Application {
         esimene.show();
 
         exit.setOnMouseClicked(event -> esimene.hide());
+
+
+
+
 
         start.setOnMouseClicked(event -> {
             esimene.hide();
