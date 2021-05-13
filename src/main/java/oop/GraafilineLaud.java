@@ -59,11 +59,11 @@ public class GraafilineLaud extends Application {
     public void setTaust(Color taust) {
         this.taust = taust;
     }
-    public void kirjutaLogiFaili (String tekst) throws LogiFailiEiLeitud {
+    public void kirjutaLogiFaili (String tekst) throws LogiFailiEiLeitudErind {
         try {
             File file =new File("logifail.txt");
             if(!file.exists()){
-                throw new LogiFailiEiLeitud(file);
+                throw new LogiFailiEiLeitudErind(file);
             }
             FileWriter fw = new FileWriter(file,true);
             BufferedWriter bw = new BufferedWriter(fw);
@@ -390,7 +390,7 @@ public class GraafilineLaud extends Application {
 
                 try {
                     kirjutaLogiFaili("Okupeeritud kohad pärast käiku " +käiguNr + ": \n" + tekst);
-                } catch (LogiFailiEiLeitud logiEiKirjutataErind) {
+                } catch (LogiFailiEiLeitudErind logiEiKirjutataErind) {
                     System.out.println("Logifaili ei leitud");
                 }
                 käiguNr++;
