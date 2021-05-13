@@ -1,6 +1,5 @@
 package oop;
 
-import javafx.animation.KeyValue;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -60,18 +59,18 @@ public class GraafilineLaud extends Application {
     public void setTaust(Color taust) {
         this.taust = taust;
     }
-    public void kirjutaLogiFaili (String tekst) throws LogiEiKirjutataErind {
+    public void kirjutaLogiFaili (String tekst) throws LogiFailiEiLeitud {
         try {
             File file =new File("logifail.txt");
             if(!file.exists()){
-                file.createNewFile();
+                throw new LogiFailiEiLeitud(file);
             }
             FileWriter fw = new FileWriter(file,true);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(tekst);
             bw.close();
         } catch (Exception e){
-            throw new LogiEiKirjutataErind("Logifaili ei leitud");
+            System.out.println("Logifail loodi");
         }
     }
 
@@ -391,7 +390,7 @@ public class GraafilineLaud extends Application {
 
                 try {
                     kirjutaLogiFaili("Okupeeritud kohad pärast käiku " +käiguNr + ": \n" + tekst);
-                } catch (LogiEiKirjutataErind logiEiKirjutataErind) {
+                } catch (LogiFailiEiLeitud logiEiKirjutataErind) {
                     System.out.println("Logifaili ei leitud");
                 }
                 käiguNr++;
