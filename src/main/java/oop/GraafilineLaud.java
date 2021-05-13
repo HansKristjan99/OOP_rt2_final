@@ -19,6 +19,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.*;
 
 public class GraafilineLaud extends Application {
@@ -415,6 +417,10 @@ public class GraafilineLaud extends Application {
         esimene.show();
 
         exit.setOnMouseClicked(event -> esimene.hide());
+
+
+
+
 
         start.setOnMouseClicked(event -> {
             esimene.hide();
