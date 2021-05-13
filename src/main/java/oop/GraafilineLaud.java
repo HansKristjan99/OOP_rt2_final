@@ -59,17 +59,18 @@ public class GraafilineLaud extends Application {
     public void setTaust(Color taust) {
         this.taust = taust;
     }
-    public void kirjutaLogiFaili (String tekst) throws LogiFailiEiLeitudErind {
+
+    public void kirjutaLogiFaili(String tekst) throws LogiFailiEiLeitudErind {
         try {
-            File file =new File("logifail.txt");
-            if(!file.exists()){
+            File file = new File("logifail.txt");
+            if (!file.exists()) {
                 throw new LogiFailiEiLeitudErind(file);
             }
-            FileWriter fw = new FileWriter(file,true);
+            FileWriter fw = new FileWriter(file, true);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(tekst);
             bw.close();
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Logifail loodi");
         }
     }
@@ -313,11 +314,11 @@ public class GraafilineLaud extends Application {
                             }
 
                             aktiivseNupuKoht.setOlek(mängijad.get(2));
-                            aktiivseNupuKoht.setRingLäbipaistvus(true);
+                            aktiivseNupuKoht.setRingLäbipaistvus(false);
                             for (Koht k2 : kohad) {
                                 if (k2.getRingPaint().equals(Color.LIGHTGREEN)) {
                                     k2.setOlek(mängijad.get(2));
-                                    k2.setRingLäbipaistvus(true);
+                                    k2.setRingLäbipaistvus(false);
                                 }
                             }
                             if (!järgmineKäikVõtmine1) {
@@ -354,11 +355,11 @@ public class GraafilineLaud extends Application {
                                 järgmineKäikVõtmine2 = true;
                             }
                             aktiivseNupuKoht.setOlek(mängijad.get(2));
-                            aktiivseNupuKoht.setRingLäbipaistvus(true);
+                            aktiivseNupuKoht.setRingLäbipaistvus(false);
                             for (Koht k2 : kohad) {
                                 if (k2.getRingPaint().equals(Color.LIGHTGREEN)) {
                                     k2.setOlek(mängijad.get(2));
-                                    k2.setRingLäbipaistvus(true);
+                                    k2.setRingLäbipaistvus(false);
                                 }
                             }
                             if (!järgmineKäikVõtmine2) {
@@ -383,13 +384,13 @@ public class GraafilineLaud extends Application {
                 StringBuilder tekst = new StringBuilder();
 
                 for (Koht koht1 : kohad) {
-                    if (!koht1.getOlek().equals(mängijad.get(2))){
+                    if (!koht1.getOlek().equals(mängijad.get(2))) {
                         tekst.append(koht1 + " \n");
                     }
                 }
 
                 try {
-                    kirjutaLogiFaili("Okupeeritud kohad pärast käiku " +käiguNr + ": \n" + tekst);
+                    kirjutaLogiFaili("Okupeeritud kohad pärast käiku " + käiguNr + ": \n" + tekst);
                 } catch (LogiFailiEiLeitudErind logiEiKirjutataErind) {
                     System.out.println("Logifaili ei leitud");
                 }
@@ -397,17 +398,28 @@ public class GraafilineLaud extends Application {
             });
             juur.getChildren().add(koht.getRing());
         }
-        return juur;
-    }
 
-    private void getButtons(Group juur) {
         Button exit = new Button("EXIT");
-        exit.setLayoutX(700);
         exit.setPrefSize(100, 30);
-        exit.setLayoutY(200);
         exit.setOnAction(arg0 -> Platform.exit());
 
-        juur.getChildren().addAll(exit);
+        VBox vbox = new VBox();
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setPrefSize(300, 600);
+
+        vbox.getChildren().add(info);
+        vbox.getChildren().add(new Label(" "));
+        vbox.getChildren().add(new Label(" "));
+        vbox.getChildren().add(new Label(" "));
+        vbox.getChildren().add(exit);
+
+        vbox.setLayoutX(600);
+        vbox.setLayoutY(0);
+
+        juur.getChildren().add(vbox);
+
+
+        return juur;
     }
 
 
@@ -435,7 +447,7 @@ public class GraafilineLaud extends Application {
 
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
-        List<Label> read = new ArrayList<>(Arrays.asList(rida1, rida2, rida3, rida4, rida5, rida6, rida7, rida8, rida9, rida10, rida11, rida12,rida13,rida14,rida15));
+        List<Label> read = new ArrayList<>(Arrays.asList(rida1, rida2, rida3, rida4, rida5, rida6, rida7, rida8, rida9, rida10, rida11, rida12, rida13, rida14, rida15));
 
         for (Label l : read) {
             l.setTextFill(Color.WHITE);
@@ -508,12 +520,11 @@ public class GraafilineLaud extends Application {
             }
             esimene.hide();
 
-            mängijad.add(new Mängija(punane,1));
-            mängijad.add(new Mängija(must,2));
-            mängijad.add(new Mängija(Color.WHITE,3));
+            mängijad.add(new Mängija(punane, 1));
+            mängijad.add(new Mängija(must, 2));
+            mängijad.add(new Mängija(Color.WHITE, 3));
 
             Group juur = setUp();
-            getButtons(juur);
             Scene stseen1 = new Scene(juur, 900, 600, taust);  // luuakse stseen
 
             peaLava.setTitle("Meie mäng");  // lava tiitelribale pannakse tekst
