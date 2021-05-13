@@ -124,7 +124,7 @@ public class Käik {
         }
     }
 
-    public boolean lubatudKäik(Seis seis, Mängija mängija, String sihtKoht) {
+    public boolean lubatudKäik(GraafilineLaud seis, Mängija mängija, String sihtKoht) {
         boolean lubatud = false;
         if (kasVaba(seis, sihtKoht)) {
             for (String s : võimalikudKäigud(sihtKoht)) {
