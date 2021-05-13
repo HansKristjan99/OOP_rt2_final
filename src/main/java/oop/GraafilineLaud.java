@@ -62,7 +62,7 @@ public class GraafilineLaud extends Application {
                 }
             }
         }
-        System.out.println(vaadeldavadIndeksid.size() +  " " + koht +" " + mängija);
+
 
         for (int[] ints : vaadeldavadIndeksid) {
             boolean kolmik = true;
@@ -76,12 +76,47 @@ public class GraafilineLaud extends Application {
                 }
             }
             if (kolmik){
-                System.out.println("Saab võtta, sest kolmik on koos: " + Arrays.toString(ints));
                 return kolmik;
                 }
             }
         return false;
         }
+    public boolean käikLisabKolmiku2(List <Koht> kohad, Koht koht,Koht vanaKoht, Mängija mängija){
+        List <int[]> vaadeldavadIndeksid = new ArrayList<>();
+        for (int[] ints : kolmikud) {
+            for (int anInt : ints) {
+                if (anInt== koht.getIndeks()){
+                    vaadeldavadIndeksid.add(ints);
+                    break;
+                }
+            }
+        }
+        for (int[] ints : vaadeldavadIndeksid) {
+            for (int i = 0; i < ints.length; i++) {
+                if (ints[i]==kohad.indexOf(koht)){
+                    ints[i] = -1;
+                }
+            }
+        }
+
+
+        for (int[] ints : vaadeldavadIndeksid) {
+            boolean kolmik = true;
+            for (int i = 0; i < ints.length; i++) {
+                if (ints[i]!=-1){
+                    if (!kohad.get(ints[i]).getOlek().equals(mängija) || ints[i]== vanaKoht.getIndeks()){
+                        kolmik = false;
+                        break;
+                    }
+                }
+            }
+            if (kolmik){
+
+                return kolmik;
+            }
+        }
+        return false;
+    }
 
 
 
@@ -120,7 +155,7 @@ public class GraafilineLaud extends Application {
         gc.drawImage(background, 0.0, 0.0, canvas.getHeight(), canvas.getWidth());
         juur.getChildren().add(canvas);
 
-        Text info = new Text("CAPTURE");
+        Text info = new Text("Mängu 1. faas");
         info.setFill(Color.WHITE);
         info.setLayoutX(700);
         info.setLayoutY(150);
@@ -171,7 +206,6 @@ public class GraafilineLaud extends Application {
                             info.setText("2. mängija, lisa nupp");
                             järgmineKäikVõtmine1 = false;
                         } else if (käikLisabKolmiku(kohad, koht, mängijad.get(0))) {
-                            System.out.println("Käik lisab kolmiku");
                             järgmineKäikVõtmine1 = true;
                             esimeseMängijaKord = !esimeseMängijaKord;
                             info.setText("Eemalda nupp 2. mängijalt");
@@ -179,40 +213,41 @@ public class GraafilineLaud extends Application {
                             koht.setOlek(mängijad.get(0));
                             nuppeLisatud += 1;
                         } else {
-                            System.out.println("Viimane else, värvime koha");
                             koht.setRingLäbipaistvus(true);
                             koht.setOlek(mängijad.get(0));
                             nuppeLisatud += 1;
+                            info.setText("2. mängija, lisa nupp");
                         }
                     } else {
                         if (järgmineKäikVõtmine2) {
                             koht.setOlek(mängijad.get(2));
-                            System.out.println("1. mängija, lisa nupp");
+                            info.setText("1. mängija, lisa nupp");
                             järgmineKäikVõtmine2 = false;
                         } else if (käikLisabKolmiku(kohad, koht, mängijad.get(1))) {
                             järgmineKäikVõtmine2 = true;
                             esimeseMängijaKord = !esimeseMängijaKord;
                             info.setText("Eemalda nupp 1. mängijalt");
-
                             koht.setRingLäbipaistvus(true);
                             koht.setOlek(mängijad.get(1));
                             nuppeLisatud += 1;
                         } else {
                             koht.setRingLäbipaistvus(true);
                             koht.setOlek(mängijad.get(1));
+                            info.setText("1. mängija, lisa nupp");
                             nuppeLisatud += 1;
                         }
                     }
                     esimeseMängijaKord = !esimeseMängijaKord;
-                    System.out.println(esimeseMängijaKord);
-                    System.out.println(nuppeLisatud);
-
                     if (nuppeLisatud >= 8) {
                         info.setText("Liiguta oma nuppe, et saada 3 ritta.");
                         mängufaas = 1;
                     }
-                } else if (mängufaas == 1) {
-                    System.out.println("Esimese mängija kord: " + esimeseMängijaKord);
+                }
+
+
+
+
+                else if (mängufaas == 1) {
                     if (esimeseMängijaKord) {
                         if (järgmineKäikVõtmine1&& koht.getOlek().equals(mängijad.get(1))) {
 
@@ -236,7 +271,7 @@ public class GraafilineLaud extends Application {
                         } else if (koht.getRingPaint().equals(Color.LIGHTGREEN)) {
                             koht.getRing().setFill(mängijad.get(0).getNupuVärv());
                             koht.setOlek(mängijad.get(0));
-                            if (käikLisabKolmiku(kohad, koht, mängijad.get(0))) {
+                            if (käikLisabKolmiku2(kohad, koht, aktiivseNupuKoht,mängijad.get(0))) {
                                 info.setText("Saad võtta 2. mängija nupu");
                                 järgmineKäikVõtmine1 = true;
                             }
@@ -276,9 +311,9 @@ public class GraafilineLaud extends Application {
                         } else if (koht.getRingPaint().equals(Color.LIGHTGREEN)) {
                             koht.getRing().setFill(mängijad.get(1).getNupuVärv());
                             koht.setOlek(mängijad.get(1));
-                            if (käikLisabKolmiku(kohad, koht, mängijad.get(1))) {
+                            if (käikLisabKolmiku2(kohad, koht,aktiivseNupuKoht, mängijad.get(1))) {
                                 info.setText("Saad võtta 1. mängija nupu");
-                                järgmineKäikVõtmine1 = true;
+                                järgmineKäikVõtmine2 = true;
                             }
                             aktiivseNupuKoht.setOlek(mängijad.get(2));
                             aktiivseNupuKoht.setRingLäbipaistvus(true);
