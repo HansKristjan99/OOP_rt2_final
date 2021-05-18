@@ -6,6 +6,11 @@ import javafx.scene.shape.Circle;
 
 // selles klassis loome kohtadele kuuluvad objektid
 public class Koht {
+    /*
+    Kirjeldab ühte kohta mängulaual.
+    Privaatseid isendiväljad ringi, mängija, nime ja indeksi jaoks.
+    Nende abil tegeletakse GraafilineLaud klassis nuppude liigutamise, lisamise, muutmisega.
+     */
     private String nimi;
     private Mängija olek;
     private Circle ring;

@@ -3,6 +3,9 @@ package oop;
 import javafx.scene.paint.Paint;
 
 public class Mängija {
+    /*
+    Sisaldab ühe mängija kirjeldamiseks vajalikke isendivälju: tema järjekorranumber, tema nupu värv.
+     */
     private int järjekorraNr;
 
     private Paint nupuVärv;

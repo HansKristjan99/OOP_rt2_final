@@ -29,6 +29,13 @@ import java.io.FileWriter;
 import java.util.*;
 
 public class GraafilineLaud extends Application {
+
+    /*
+    Oluliseim ja suurim klass, mis loob graafilise kasutajaliidese meetodiga setUp() ja muid erinevaid abimeetodeid,
+    mille abil mängu käiku saab kujundada.
+    Lisaks eventhandlerid nuppude vajutamisega tegelemiseks.
+
+     */
     Image background = new Image("board.png");
     List<Koht> kohad = new ArrayList<>();
     List<Mängija> mängijad = new ArrayList<>();
@@ -59,7 +66,7 @@ public class GraafilineLaud extends Application {
     public void setTaust(Color taust) {
         this.taust = taust;
     }
-
+    //Meetod logifaili täitmiseks iga käigu järel
     public void kirjutaLogiFaili(String tekst) throws LogiFailiEiLeitudErind {
         try {
             File file = new File("logifail.txt");
@@ -84,7 +91,7 @@ public class GraafilineLaud extends Application {
         }
         return mängijaNupud;
     }
-
+    //Meetod, mis kontrollib
     public boolean käikLisabKolmiku(List<Koht> kohad, Koht koht, Mängija mängija) {
         List<int[]> vaadeldavadIndeksid = new ArrayList<>();
         for (int[] ints : kolmikud) {
@@ -249,8 +256,7 @@ public class GraafilineLaud extends Application {
                             koht.setRingLäbipaistvus(false);
                             info.setText("2. mängija, lisa nupp");
                             järgmineKäikVõtmine1 = false;
-                        } else
-                            if (koht.getOlek().equals(mängijad.get(2))){
+                        } else if (koht.getOlek().equals(mängijad.get(2))){
                                 if (käikLisabKolmiku(kohad, koht, mängijad.get(0))) {
                                     järgmineKäikVõtmine1 = true;
                                     esimeseMängijaKord = !esimeseMängijaKord;
@@ -265,6 +271,9 @@ public class GraafilineLaud extends Application {
                                     info.setText("2. mängija, lisa nupp");
                                 }
                             }
+                        else if (koht.getOlek().equals(mängijad.get(1))||koht.getOlek().equals(mängijad.get(0))){
+                            esimeseMängijaKord = !esimeseMängijaKord;
+                        }
 
                     } else {
                         if (järgmineKäikVõtmine2) {
@@ -272,8 +281,7 @@ public class GraafilineLaud extends Application {
                             koht.setRingLäbipaistvus(false);
                             info.setText("1. mängija, lisa nupp");
                             järgmineKäikVõtmine2 = false;
-                        } else
-                        if (koht.getOlek().equals(mängijad.get(2))){
+                        } else if (koht.getOlek().equals(mängijad.get(2))){
                             if (käikLisabKolmiku(kohad, koht, mängijad.get(1))) {
                                 järgmineKäikVõtmine2 = true;
                                 esimeseMängijaKord = !esimeseMängijaKord;
@@ -288,6 +296,9 @@ public class GraafilineLaud extends Application {
                                 nuppeLisatud += 1;
                             }
 
+                        }
+                        else if (koht.getOlek().equals(mängijad.get(1))||koht.getOlek().equals(mängijad.get(0))){
+                            esimeseMängijaKord = !esimeseMängijaKord;
                         }
 
                     }

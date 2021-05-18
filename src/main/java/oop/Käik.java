@@ -6,6 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Käik {
+    /*
+    Abiklass, mille meetod võimalikudKäigud tagastab koha nime põhjal temaga kõrvuti olevate kohtade nimed.
+     */
 
     public Käik() {
     }
